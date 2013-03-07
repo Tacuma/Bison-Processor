@@ -60,7 +60,7 @@ Stack, Arrays, Familiarity of Computer Organization, CPU Architecture  and Memor
 	isprime.exe
 
 
-#Description
+#Description:
 ####Specifications are included in p2_2011.doc
 ####ISA Architecture is included in lab1_2001.doc
 

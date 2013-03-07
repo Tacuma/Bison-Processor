@@ -1,0 +1,5 @@
+max.exe
+min.exe
+nfact.exe
+sum.exe
+isprime.exe
