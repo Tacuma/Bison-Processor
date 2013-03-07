@@ -90,7 +90,7 @@ public class Instruction {
     * case statements are used to decode the opcode into its
     * relevant instruction.
     */
-   public void displayzeroinstruction(int IC){
+   public void displayzeroinstruction(long IC){
        String display;
        switch(getOpcode()) {
            case 0: display = "NOP";      break;
@@ -136,7 +136,7 @@ public class Instruction {
     * Using case statements, the opcode is translated to its relevant instruction.
     * The PC, opcode, index bit, and daddr is displayed
     */
-    public void displayoneinstruction(int IC){
+    public void displayoneinstruction(long IC){
        String display;
        switch(getOpcode()) {
            case 0: display = "NOP";     break;

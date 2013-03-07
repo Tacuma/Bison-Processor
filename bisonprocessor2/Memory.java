@@ -6,11 +6,14 @@
  */
 
 package bisonprocessor2;
-/**
- *
- * @author TaKuma
- */
+
+
+
 public class Memory {
+    
+   /* The Memory class provides access to 256 words of addressable memory to hold data 
+    * and instructions
+    */ 
     
    private int memory[];
    
@@ -50,7 +53,6 @@ public class Memory {
        return memstring;
    }     
          
-   
    public void setMemoryString(String s, int loc){     
         int i=0;
         char char1;
@@ -79,4 +81,5 @@ public class Memory {
       memory[loc] = int_value;
    }
   
+
 }

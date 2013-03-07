@@ -8,11 +8,15 @@
 
 package bisonprocessor2;
 import java.io.*;
-/**
- *
- * @author TaKuma
- */
+
 public class Kernel {
+    
+    /* The Kernel class loads the batch file that contains the file name of a given program
+     * written in the Stack-based instruction set language. The Kernel loads one job at a time
+     * into memory, starting at address addr; default address is zero. Once the entire program is 
+     * loaded into memory, the kernel will call the CPU.run() method to start processing the code
+     */
+    
     
     private String file;
     private Memory memoryRef;
@@ -25,29 +29,25 @@ public class Kernel {
         this.file = file;
         memoryRef=mem;
         cpuRef=c;
-        
     }
     
     void load_Jobs_From_BatchFile(int addr) throws IOException{
-       
         String line;
         String innerline;
         FileReader instream = null;
         File infile = new File(file);
         instream = new FileReader(infile);
-        BufferedReader input = new BufferedReader(instream); //sets up the string buffer
-        while(( line = input.readLine()) != null ){  // while file is not empty
+        BufferedReader input = new BufferedReader(instream);                //sets up the string buffer
+        while(( line = input.readLine()) != null ){                         // while file is not empty
                 addr = 0;
                 System.out.println(line);
                 File infile2 = new File(line);
                 FileReader instream2 = new FileReader(infile2);
                 BufferedReader input2 = new BufferedReader(instream2);
-                while(( innerline = input2.readLine()) != null ){  // while file is not empty
-                      //System.out.println(innerline);
+                while(( innerline = input2.readLine()) != null ){           // while file is not empty
                       memoryRef.setMemoryWord(innerline, addr);
-                      //System.out.println(memoryRef.getMemoryWord(addr));
-                      //if (addr==255)
-                         // break;
+                      if (addr>255)
+                          break;
                       addr++;
                 }
                 cpuRef.run();

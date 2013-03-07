@@ -3,7 +3,7 @@
  * Tacuma Solomon
  * SYCS 401 - Operating Systems (Fall 2011)
  * Dr. Legand Burge
- *  This program is a simulator of the Bison Processor2. 
+ * This program is a simulator of the Bison Processor2. 
  */
 
 package bisonprocessor2;
@@ -14,10 +14,10 @@ import java.util.logging.Logger;
 
 enum Instr { ZERO, ONE };
 
-/*This is the CPU class. The class contains,:
+/*This is the CPU class. The class contains:
  *  a stack which acts as the program registers,
  *  a Program Counter, which contains the a number, keeping track of the instuctions output,
- *  the IR, which holds a value of an instuction,
+ *  the IR, which holds a value of an instruction,
  *  the BR and LR, which is the base and limit registers,
  *  The system mode,
  *  syscall status,
@@ -34,7 +34,6 @@ public class CPU {
    private short LR;                             //limit register
    private int mode;                          //system mode
    private int SC;                             //syscall status
-   private int IC;
    private long Clock;                           //system clock, init to zero
    Boolean branched = false;
    Boolean halt = false;
@@ -48,6 +47,7 @@ public class CPU {
    public CPU(Memory m){
        memRef=m;       
    }
+   
    // The second constructor for CPU constructs an instance of CPU, whilst initiating values for CPU
    public CPU(int IC, int br, int ir, int pc, long clock, Memory m){
     IC = 0;
@@ -62,6 +62,7 @@ public class CPU {
    public void pushStack(int push){
        s.push(push);
    }
+   
    public void setIR(int ir){      //setter method for IR
        IR = ir;
    }
@@ -114,27 +115,9 @@ public class CPU {
        return mode;
    }
    
- /*  public String toString(){
-       return
-   } */
 
-
-  /* This method takes a string that was read in from the main, and translates it into a omt, where it is
-   * stored in the IR
-   */
-
-  public void HEXStringToShort(String hex){  // read in line is passed into the method
-      int int_value = Integer.parseInt(hex, 16); // line is changed from a hex string to an integer
-      setIR(int_value); //value is set to IR
-    }
-
-  /* The decode function takes the IR, and decodes it, depending on the value of the Intruction type.
-   * It also takes in a copy of the undecoded line, for outputing the orignal hex later in the display instruction methods
-   * of the instruction class.
-   */
-
+  // The decode function decodes the value in IR, and executes the Instruction.
   public void decode() throws IOException{//(String line){
-      Instruction inst;
       int instruction = getIR();
       int instructiontype = instruction;
       instructiontype = instructiontype >> 15; // parses instruction for instruction bit
@@ -143,22 +126,18 @@ public class CPU {
             int zero_opcode2 = instruction;    // create two int vars to hold the instruction for decoding
             zero_opcode1 = zero_opcode1 >> 8;
             zero_opcode1 = zero_opcode1 & 0x001F; // decodes the opcode for substring 1
-            //String part1 = line.substring(0,2);   // stores the first half of the hex string
             Instruction zeroinstruction = new Instruction(Instr.ZERO,zero_opcode1);
                                                   // creates a new instance of an instruction
-            IC++;
-          // zeroinstruction.displayzeroinstruction(IC);  //invokes the instruction's display method
-           //System.out.println(toString());
+            //zeroinstruction.displayzeroinstruction(getClock());  //invokes the instruction's display method
+            //System.out.println(toString());
             exec(zeroinstruction);
             
 
             zero_opcode2 = zero_opcode2 & 0x001F;  // deodes the second zero instruction's opcode
-            //String part2 = line.substring(2,4);    // takes the second half of the hex substring
             Instruction zeroinstruction2 = new Instruction(Instr.ZERO,zero_opcode2);
                                                    // creates a new instance of an instruction
-            IC++;
-          //  zeroinstruction2.displayzeroinstruction(IC); //invokes instruction display method
-            //System.out.println(toString());
+           // zeroinstruction2.displayzeroinstruction(getClock()); //invokes instruction display method
+           // System.out.println(toString());
             exec(zeroinstruction2);
         }
         else if (instructiontype == 1) {    // if instruction bit is = 1
@@ -179,10 +158,9 @@ public class CPU {
             daddr = daddr & 0x00FF;         // decodes daddr
             Instruction oneinstruction = new Instruction(Instr.ONE, opcode, bit, daddr);
                                             // creates a new instance of a one bit instruction
-            IC++;
-           // oneinstruction.displayoneinstruction(IC);
+           //oneinstruction.displayoneinstruction(getClock());
                                             // invokes display method for instruction
-           // System.out.println(toString());
+            //System.out.println(toString());
             exec(oneinstruction);
         }
   } 
@@ -193,6 +171,7 @@ public class CPU {
        int item1,item2;
        if (inst.getInstr_type()==Instr.ZERO){
            switch(inst.getOpcode()) {
+               
                case 0: {//no op
                } break;    
 
@@ -517,6 +496,8 @@ public class CPU {
        
   }//end method
   
+  
+  //Retrieves a value from memory[ProgramCount], and places the value in the Instruction Register
   public void fetch() throws IOException{
             IR = memRef.getMemoryWord(PC);     
             decode();
@@ -527,11 +508,12 @@ public class CPU {
             branched = false;      // Resets branched
 }
   
+  // Returns a string of the following CPU information. 
   public String toString(){
       return "CPU["+getClock()+"] PC=("+getPC()+"), IR=("+getIR()+")>{"+getmode()+"}, SC = "+getSC()+" ,Stack = "+s.peek()+"\n";
   }
   
- 
+ // Runs the CPU class.
   public void run() {
       halt = false;
        do {  
@@ -543,7 +525,6 @@ public class CPU {
        }while(halt != true);
        PC = 0;
   }
-
 }
 
 
