@@ -65,8 +65,7 @@ Stack, Arrays, Familiarity of Computer Organization, CPU Architecture  and Memor
 ####ISA Architecture is included in lab1_2001.doc
 
 
-
-Program 2 is a simulation of a program with a stack based CPU.  
+This program is a Simulation of a Stack-based CPU with a mini Kernel for running batch programs written in the Stack-based ISA. 
 The program reads in a series of .exe files from a batch file where the instructions are read and executed.   
 The program is divided into 5 main classes. 'CPU.java', 'Instruction.java', 'Kernel.java', 'Memory.java', and 'Simulation.java'.     
 #####Program Execution           
