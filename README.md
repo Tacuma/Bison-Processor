@@ -3,16 +3,75 @@
 #Data Structurs/Concepts Used:
 Stack, Arrays, Familiarity of Computer Organization, CPU Architecture  and Memory Hierarchy
 
+#Output:
+
+	max.exe
+	Enter number between 1 - 100: 
+	2
+	
+	Enter an integer:
+	75
+	
+	Enter an integer:
+	25
+	
+	The maximum value: 
+	75
+	
+	min.exe
+	Enter number between 1 - 100: 
+	2
+	
+	Enter an integer:
+	100
+	
+	Enter an integer:
+	50
+	
+	The minimum value: 
+	50
+	
+	nfact.exe
+	Enter N:
+	5
+	Factorial of N: 
+	120
+	
+	sum.exe
+	Enter N:
+	10
+	Sum is: 
+	45
+	
+	isprime.exe
+	Enter a number between 1 - 32000: 
+	5
+	
+	The number:
+	5
+	
+	Is a prime number
+
+####input.txt
+	max.exe
+	min.exe
+	nfact.exe
+	sum.exe
+	isprime.exe
+
+
 #Description
 ####Specifications are included in p2_2011.doc
 ####ISA Architecture is included in lab1_2001.doc
 
 
 
-Program 2 is a simulation of a program with a stack based CPU. The program reads in a series of programs from a batch file where the instructions are read and executed. 
-The program is divided into 5 main classes. 'CPU.java', Instruction.java, Kernel.java Memory.java, and Simulation.java. 
-Program Execution
-The simulation class holds the main method. When the program is run, the Simulation class creates instances of the Memory, CPU, and Kernel classes.  The Kernel class, via the load_jobs_from_batchFile(), then reads the instructions from the batch files, inserting them into an array of shorts, in the memory class. When the loading is done, the CPU.run method is called from within the loader. From within this Method, the fetch method is run. A line from the memory is read, decoded, and executed, until the program ends.
+Program 2 is a simulation of a program with a stack based CPU.  
+The program reads in a series of .exe files from a batch file where the instructions are read and executed.   
+The program is divided into 5 main classes. 'CPU.java', 'Instruction.java', 'Kernel.java', 'Memory.java', and 'Simulation.java'.     
+#####Program Execution           
+The simulation class holds the main method. When the program is run, the Simulation class creates instances of the Memory, CPU, and Kernel classes.
+The Kernel class, via the load_jobs_from_batchFile(), then reads the instructions from the batch files, inserting them into an array of shorts, in the memory class. When the loading is done, the CPU.run method is called from within the loader. From within this Method, the fetch method is run. A line from the memory is read, decoded, and executed, until the program ends.
 From this we will now go into each class with more detail.
 
 ####1 - The CPU Class:
