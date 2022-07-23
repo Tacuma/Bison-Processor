@@ -1,9 +1,9 @@
-#Bison Processor
+# Bison Processor
 
-#Data Structurs/Concepts Used:
+# Data Structurs/Concepts Used:
 Stack, Arrays, Familiarity of Computer Organization, CPU Architecture  and Memory Hierarchy
 
-#Output:
+# Output:
 
 	max.exe
 	Enter number between 1 - 100: 
@@ -52,7 +52,7 @@ Stack, Arrays, Familiarity of Computer Organization, CPU Architecture  and Memor
 	
 	Is a prime number
 
-####input.txt
+#### input.txt
 	max.exe
 	min.exe
 	nfact.exe
@@ -60,20 +60,20 @@ Stack, Arrays, Familiarity of Computer Organization, CPU Architecture  and Memor
 	isprime.exe
 
 
-#Description:
-####Specifications are included in p2_2011.doc
-####ISA Architecture is included in lab1_2001.doc
+# Description:
+#### Specifications are included in p2_2011.doc
+#### ISA Architecture is included in lab1_2001.doc
 
 
 This program is a Simulation of a Stack-based CPU with a mini Kernel for running batch programs written in the Stack-based ISA. 
 The program reads in a series of .exe files from a batch file where the instructions are read and executed.   
 The program is divided into 5 main classes. 'CPU.java', 'Instruction.java', 'Kernel.java', 'Memory.java', and 'Simulation.java'.     
-#####Program Execution           
+##### Program Execution           
 The simulation class holds the main method. When the program is run, the Simulation class creates instances of the Memory, CPU, and Kernel classes.
 The Kernel class, via the load_jobs_from_batchFile(), then reads the instructions from the batch files, inserting them into an array of shorts, in the memory class. When the loading is done, the CPU.run method is called from within the loader. From within this Method, the fetch method is run. A line from the memory is read, decoded, and executed, until the program ends.
 From this we will now go into each class with more detail.
 
-####1 - The CPU Class:
+#### 1 - The CPU Class:
 
 The CPU class contains:
 +	A stack which holds a maximum of 7 registers
@@ -90,13 +90,13 @@ The CPU class contains:
 +	The fetch method, loads a line of instruction from memory
 
 
-#####1.1	Run Method
+##### 1.1	Run Method
 The run method is a loop of execution that begins after the instructions are read into memory. It is a loop that runs the fetch, the decode, and the execute methods, one after the other until the halt instruction, where it ends.
 
-#####1.2 Fetch Method
+##### 1.2 Fetch Method
 The fetch method , using the PC counter value, retrieves a word of instructions from the memory class. It accomplishes this using the getMemoryWord(int loc), and the getMemoryString(int loc).	
 
-#####1.3 The Decode Method
+##### 1.3 The Decode Method
 This method is purely responsible for fetching the value that is contained in the instruction register, and converting it into the appropriate code. Using the getIR instruction, the value of IR is saved into a variable called instruction.
 +	The value is then copied into instruction type.
 +	A shift of the instruction type variable is done to find the first bit.
@@ -133,12 +133,12 @@ This method is purely responsible for fetching the value that is contained in th
 	+	A new instance of one instruction is created using the instruction class
 	+	The display one instruction method is invoked from the instruction class
 
-#####1.4 Execute Instruction      
+##### 1.4 Execute Instruction      
 The execution instruction performs the operation on the stack, depending on the nature of the instruction. It uses an instance of an instruction that is fed into it.
 	       
 	           
 	           
-####2 - Instruction Class
+#### 2 - Instruction Class
 
 This class represents an instruction in the bison processor. Instances generated from this class are the manifestations of instructions on the processor.  Each instruction (ZERO TYPE) has an Instr_type enum, and opcode. Each instruction (ONE TYPE) has an Intr_Type, Opcode, Index_bit enum, and daddr.
 The instruction class contains as its private data members:
@@ -150,7 +150,7 @@ The instruction class contains as its private data members:
 The class contains setter and getter methods. Methods of note are the displayzeroinstruction, which displays information specifically for zero bit instructions, and displayoneinstruction, which displays information specifically for a one bit instruction.
 
 
-####3 - Kernel Class
+#### 3 - Kernel Class
 
 The kernel class is responsible for loading the contents of the batch file into memory.  
 The Class contains 
@@ -158,10 +158,10 @@ The Class contains
 +	A reference to the CPU class
 +	A constructor with the file name, memory reference, and CPU reference as parameters
         
-#####3.1 Kernel (String file, Memory mem, CPU c)        
+##### 3.1 Kernel (String file, Memory mem, CPU c)        
 The kernel constructs an instance of itself, with reference parameters to the Memory and CPU
 	
-#####3.2 load_jobs_from_batchfile(int addr)       
+##### 3.2 load_jobs_from_batchfile(int addr)       
 This class is responsible for reading the instructions from a batch file and assigning the instructions to memory. It performs this with the help of the setter methods such as
 +	setMemoryWord(int loc)
 +	SetMemoryString(String s, int loc)
@@ -182,19 +182,19 @@ Here is the sequence of events of how it is run:
 
 
 	             
-####4 - Memory Class
+#### 4 - Memory Class
 
 The memory class represents the RAM or main memory.  It contains access to 256 words of memory. Each line holds 16 bits.
 The Class Contains:
 	short memory[]  //representation of the array, which contains shorts. Each short holds an instruction  
 	
-#####4.1 Memory(int size)    
+##### 4.1 Memory(int size)    
 This is a constructor. It creates an array of size size.  
 
-#####4.2 Short getMemoryWord(int loc)	    
+##### 4.2 Short getMemoryWord(int loc)	    
 This returns the instruction from array location specified at index location 'loc'  
 
-#####4.3 getMemoryString(int loc)    
+##### 4.3 getMemoryString(int loc)    
 This returns a string starting from location to the first occurrence to a null character   
 +	While "Instruction read != null character"   
 +	Begin loop    
@@ -202,20 +202,20 @@ This returns a string starting from location to the first occurrence to a null c
 +	Convert it to the appropriate character based on its ascii value    
 +	End loop     
 
-#####4.4 setMemoryWord(short word, int loc)                 
+##### 4.4 setMemoryWord(short word, int loc)                 
 Assigns an instruction to the memory address array index based on the value of loc   
-#####4.5 setMemoryString(String s, int loc)          
+##### 4.5 setMemoryString(String s, int loc)          
 Converts at string from stdin, converts to hex, and places in "memory"   
-#####4.6 setMemoryWord(String Hexword, int loc)                 
+##### 4.6 setMemoryWord(String Hexword, int loc)                 
 This method takes a hexadecimal string as a character and int address, converts the int into a short, and then assigns it to the memory at array index loc
 
 
 
-####5 - Class Simulation    
+#### 5 - Class Simulation    
         
 This class is the main driver of the assignment. It contains the main method constructs instances for the Kernel, the Memory, and the CPU.     
 
-#####5.1 Simulation.main()    
+##### 5.1 Simulation.main()    
 +	Constructs Memory   
 +	Constructs Kernel   
 +	Constructs CPU    
